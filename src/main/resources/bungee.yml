@@ -1,0 +1,4 @@
+name: Apollo
+version: ${releaseVersion}
+authors: [Maxopoly]
+main: com.github.civcraft.apollo.ApolloMain
