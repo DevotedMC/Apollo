@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 
 import com.github.civcraft.apollo.ApolloMain;
 import com.github.civcraft.zeus.model.TransactionIdManager;
+import com.github.civcraft.zeus.rabbit.ZeusRabbitGateway;
 import com.github.civcraft.zeus.servers.ZeusServer;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
@@ -27,13 +28,13 @@ public class RabbitHandler {
 	private ApolloRabbitInputHandler inputProcessor;
 	private ZeusServer zeus;
 
-	public RabbitHandler(ConnectionFactory connFac, String incomingQueue, String outgoingQueue, String ownName,
+	public RabbitHandler(ConnectionFactory connFac, String ownIdentifier, TransactionIdManager transactionManager,
 			Logger logger, ZeusServer zeus) {
 		this.connectionFactory = connFac;
-		this.incomingQueue = incomingQueue;
-		this.outgoingQueue = outgoingQueue;
+		this.incomingQueue = ZeusRabbitGateway.getChannelFromZeus(ownIdentifier);
+		this.outgoingQueue = ZeusRabbitGateway.getChannelToZeus(ownIdentifier);
 		this.logger = logger;
-		inputProcessor = new ApolloRabbitInputHandler(new TransactionIdManager(ownName));
+		inputProcessor = new ApolloRabbitInputHandler(transactionManager);
 		this.zeus = zeus;
 	}
 

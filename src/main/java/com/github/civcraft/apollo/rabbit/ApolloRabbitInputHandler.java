@@ -1,5 +1,8 @@
 package com.github.civcraft.apollo.rabbit;
 
+import com.github.civcraft.apollo.ApolloMain;
+import com.github.civcraft.apollo.rabbit.incoming.LimboPlayerHandler;
+import com.github.civcraft.apollo.rabbit.incoming.SendPlayerHandler;
 import com.github.civcraft.zeus.model.TransactionIdManager;
 import com.github.civcraft.zeus.rabbit.abstr.AbstractRabbitInputHandler;
 
@@ -11,14 +14,13 @@ public class ApolloRabbitInputHandler extends AbstractRabbitInputHandler {
 
 	@Override
 	protected void registerCommands() {
-		// TODO Auto-generated method stub
-		
+		registerCommand(new LimboPlayerHandler());
+		registerCommand(new SendPlayerHandler());
 	}
 
 	@Override
 	protected void logError(String msg) {
-		// TODO Auto-generated method stub
-		
+		ApolloMain.getInstance().getLogger().severe(msg);
 	}
 
 }

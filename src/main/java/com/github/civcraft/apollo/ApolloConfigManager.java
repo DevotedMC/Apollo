@@ -6,9 +6,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import org.bukkit.configuration.ConfigurationSection;
-
-import com.github.civcraft.zeus.ConfigManager;
 import com.google.common.io.ByteStreams;
 import com.rabbitmq.client.ConnectionFactory;
 
@@ -25,17 +22,15 @@ public class ApolloConfigManager {
 	private Configuration config;
 	
 	private ConnectionFactory connectionFactory;
-	private String incomingQueue;
-	private String outgoingQueue;
+	private String ownIdentifier;
 
 	public ApolloConfigManager(ApolloMain apollo) {
 		this.apollo = apollo;
 	}
 	
 	public boolean parse() {
-		incomingQueue = config.getString("rabbitmq.incomingQueue");
-		outgoingQueue = config.getString("rabbitmq.outgoingQueue");
 		connectionFactory = parseRabbitConfig();
+		ownIdentifier = config.getString("own_identifier");
 		return true;
 	}
 	
@@ -60,16 +55,12 @@ public class ApolloConfigManager {
 		return connFac;
 	}
 	
-	public String getOutgoingRabbitQueue() {
-		return outgoingQueue;
-	}
-	
-	public String getIncomingRabbitQueue() {
-		return incomingQueue;
-	}
-	
 	public ConnectionFactory getConnectionFactory() {
 		return connectionFactory;
+	}
+	
+	public String getOwnIdentifier() {
+		return ownIdentifier;
 	}
 
 	public boolean reload() {
