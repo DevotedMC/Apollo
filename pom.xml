@@ -76,7 +76,7 @@
 		</dependency>
 		<dependency>
 			<groupId>com.github.civcraft</groupId>
-			<artifactId>Zeus</artifactId>
+			<artifactId>zeus</artifactId>
 			<version>1.0</version>
 		</dependency>
 	</dependencies>

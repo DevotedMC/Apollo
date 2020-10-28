@@ -1,6 +1,7 @@
 package com.github.civcraft.apollo;
 
 import com.github.civcraft.apollo.commands.LimboPlayerCommand;
+import com.github.civcraft.apollo.listener.LoginListener;
 import com.github.civcraft.apollo.rabbit.RabbitHandler;
 import com.github.civcraft.zeus.model.TransactionIdManager;
 import com.github.civcraft.zeus.servers.ZeusServer;
@@ -21,6 +22,7 @@ public class ApolloMain extends Plugin {
 	private TransactionIdManager transactionIdManager;
 	private LimboManager limboManager;
 	private PlayerServerManager serverManager;
+	private ZeusServer zeus;
 
 	@Override
 	public void onEnable() {
@@ -30,10 +32,13 @@ public class ApolloMain extends Plugin {
 			getProxy().stop("Failed to load config");
 			return;
 		}
+		zeus = new ZeusServer();
 		serverManager = new PlayerServerManager(this);
 		limboManager = new LimboManager(this);
 		transactionIdManager = new TransactionIdManager(configManager.getOwnIdentifier());
-		rabbitHandler = new RabbitHandler(configManager.getConnectionFactory(),configManager.getOwnIdentifier(), transactionIdManager, getLogger(), new ZeusServer());
+		getProxy().getPluginManager().registerListener(this, new LoginListener());
+		rabbitHandler = new RabbitHandler(configManager.getConnectionFactory(), configManager.getOwnIdentifier(),
+				transactionIdManager, getLogger(), new ZeusServer());
 		registerCommands();
 	}
 
@@ -43,6 +48,10 @@ public class ApolloMain extends Plugin {
 
 	public LimboManager getLimboManager() {
 		return limboManager;
+	}
+	
+	public ZeusServer getZeus() {
+		return zeus;
 	}
 
 	public RabbitHandler getRabbitHandler() {
@@ -56,7 +65,7 @@ public class ApolloMain extends Plugin {
 	public TransactionIdManager getTransactionIdManager() {
 		return transactionIdManager;
 	}
-	
+
 	public PlayerServerManager getPlayerServerManager() {
 		return serverManager;
 	}

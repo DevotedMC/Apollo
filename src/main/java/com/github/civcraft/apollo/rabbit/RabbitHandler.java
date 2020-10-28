@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 
 import com.github.civcraft.apollo.ApolloMain;
 import com.github.civcraft.zeus.model.TransactionIdManager;
+import com.github.civcraft.zeus.rabbit.RabbitMessage;
 import com.github.civcraft.zeus.rabbit.ZeusRabbitGateway;
 import com.github.civcraft.zeus.servers.ZeusServer;
 import com.rabbitmq.client.Channel;
@@ -83,9 +84,9 @@ public class RabbitHandler {
 		}
 	}
 
-	public boolean sendMessage(String msg) {
+	public boolean sendMessage(RabbitMessage message) {
 		try {
-			outgoingChannel.basicPublish("", outgoingQueue, null, msg.getBytes("UTF-8"));
+			outgoingChannel.basicPublish("", outgoingQueue, null, message.getJSON().toString().getBytes("UTF-8"));
 			return true;
 		} catch (IOException e) {
 			logger.severe("Failed to send rabbit message: " + e);
