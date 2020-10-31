@@ -59,6 +59,9 @@ public class RabbitHandler {
 			DeliverCallback deliverCallback = (consumerTag, delivery) -> {
 				try {
 					String message = new String(delivery.getBody(), StandardCharsets.UTF_8);
+					if (ApolloMain.getInstance().getConfigManager().debugRabbit()) {
+						logger.info("[X] R_IN: " + message);
+					}
 					inputProcessor.handle(zeus, message);
 				} catch (Exception e) {
 					logger.severe("Exception in rabbit handling: " + e.toString());
@@ -86,7 +89,11 @@ public class RabbitHandler {
 
 	public boolean sendMessage(RabbitMessage message) {
 		try {
-			outgoingChannel.basicPublish("", outgoingQueue, null, message.getJSON().toString().getBytes("UTF-8"));
+			String strMsg = message.getJSON().toString();
+			if (ApolloMain.getInstance().getConfigManager().debugRabbit()) {
+				logger.info("[X] R_OUT: " + strMsg);
+			}
+			outgoingChannel.basicPublish("", outgoingQueue, null, strMsg.getBytes("UTF-8"));
 			return true;
 		} catch (IOException e) {
 			logger.severe("Failed to send rabbit message: " + e);

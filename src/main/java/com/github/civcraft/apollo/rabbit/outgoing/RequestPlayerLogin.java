@@ -5,6 +5,7 @@ import java.util.UUID;
 import org.json.JSONObject;
 
 import com.github.civcraft.zeus.rabbit.RabbitMessage;
+import com.github.civcraft.zeus.rabbit.incoming.apollo.PlayerLoginRequest;
 
 public class RequestPlayerLogin extends RabbitMessage {
 
@@ -22,7 +23,7 @@ public class RequestPlayerLogin extends RabbitMessage {
 
 	@Override
 	public String getIdentifier() {
-		return "initial_login_request";
+		return PlayerLoginRequest.ID;
 	}
 
 }

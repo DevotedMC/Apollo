@@ -23,6 +23,7 @@ public class ApolloConfigManager {
 	
 	private ConnectionFactory connectionFactory;
 	private String ownIdentifier;
+	private boolean rabbitDebug;
 
 	public ApolloConfigManager(ApolloMain apollo) {
 		this.apollo = apollo;
@@ -52,6 +53,7 @@ public class ApolloConfigManager {
 		if (port != -1) {
 			connFac.setPort(port);
 		}
+		rabbitDebug = config.getBoolean("rabbitmq.debug", true);
 		return connFac;
 	}
 	
@@ -62,7 +64,11 @@ public class ApolloConfigManager {
 	public String getOwnIdentifier() {
 		return ownIdentifier;
 	}
-
+	
+	public boolean debugRabbit() {
+		return rabbitDebug;
+	}
+ 
 	public boolean reload() {
 		apollo.getDataFolder().mkdirs();
 		configFile = new File(apollo.getDataFolder(), CONFIG_FILE_NAME);

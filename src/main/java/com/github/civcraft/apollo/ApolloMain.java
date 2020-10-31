@@ -39,7 +39,17 @@ public class ApolloMain extends Plugin {
 		getProxy().getPluginManager().registerListener(this, new LoginListener());
 		rabbitHandler = new RabbitHandler(configManager.getConnectionFactory(), configManager.getOwnIdentifier(),
 				transactionIdManager, getLogger(), new ZeusServer());
+		if (!rabbitHandler.setup()) {
+			getProxy().stop("Failed to load rabbit");
+			return;
+		}
+		rabbitHandler.beginAsyncListen();
 		registerCommands();
+	}
+	
+	@Override
+	public void onDisable() {
+		rabbitHandler.shutdown();
 	}
 
 	private void registerCommands() {
