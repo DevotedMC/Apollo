@@ -22,7 +22,7 @@ public class PlayerLoginSession extends PlayerSpecificPacketSession {
 
 	public void handleReply(boolean allow, String reason, String targetServer) {
 		if (allow && targetServer != null) {
-			eventWaiting.setCancelReason("");
+			eventWaiting.setCancelReason();
 			ApolloMain.getInstance().getPlayerServerManager().putConnectionTarget(getPlayer(), targetServer);
 		} else {
 			if (reason == null || reason.isEmpty()) {
@@ -31,7 +31,9 @@ public class PlayerLoginSession extends PlayerSpecificPacketSession {
 			eventWaiting.setCancelReason(reason);
 		}
 		eventWaiting.setCancelled(false);
-		eventWaiting.notifyAll();
+		synchronized (eventWaiting) {
+			eventWaiting.notifyAll();
+		}
 	}
 
 	@Override

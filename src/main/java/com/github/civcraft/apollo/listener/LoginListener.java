@@ -18,6 +18,7 @@ public class LoginListener implements Listener {
 		String ticket = apollo.getTransactionIdManager().pullNewTicket();
 		PlayerLoginSession session = new PlayerLoginSession(apollo.getZeus(), ticket,
 				event.getConnection().getUniqueId());
+		session.setWaitingEvent(event);
 		apollo.getTransactionIdManager().putSession(session);
 		ApolloMain.getInstance().getRabbitHandler()
 				.sendMessage(new RequestPlayerLogin(ticket, event.getConnection().getUniqueId()));
@@ -30,7 +31,7 @@ public class LoginListener implements Listener {
 				}
 			}
 		}
-		if (!event.getCancelReason().isEmpty()) {
+		if (event.getCancelReasonComponents().length > 0) {
 			event.setCancelled(true);
 			return;
 		}

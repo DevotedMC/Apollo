@@ -3,12 +3,14 @@ package com.github.civcraft.apollo.rabbit;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.TimeoutException;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.github.civcraft.apollo.ApolloMain;
 import com.github.civcraft.zeus.model.TransactionIdManager;
 import com.github.civcraft.zeus.rabbit.RabbitMessage;
 import com.github.civcraft.zeus.rabbit.ZeusRabbitGateway;
+import com.github.civcraft.zeus.rabbit.incoming.InteractiveRabbitCommand;
 import com.github.civcraft.zeus.servers.ZeusServer;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
@@ -28,6 +30,7 @@ public class RabbitHandler {
 	private Channel outgoingChannel;
 	private ApolloRabbitInputHandler inputProcessor;
 	private ZeusServer zeus;
+	private String consumerTag;
 
 	public RabbitHandler(ConnectionFactory connFac, String ownIdentifier, TransactionIdManager transactionManager,
 			Logger logger, ZeusServer zeus) {
@@ -40,6 +43,7 @@ public class RabbitHandler {
 	}
 
 	public boolean setup() {
+		InteractiveRabbitCommand.setSendingLambda((s,p) -> sendMessage(p));	
 		try {
 			conn = connectionFactory.newConnection();
 			incomingChannel = conn.createChannel();
@@ -64,12 +68,11 @@ public class RabbitHandler {
 					}
 					inputProcessor.handle(zeus, message);
 				} catch (Exception e) {
-					logger.severe("Exception in rabbit handling: " + e.toString());
-					e.printStackTrace();
+					logger.log(Level.SEVERE, "Exception in rabbit handling: ", e);
 				}
 			};
 			try {
-				incomingChannel.basicConsume(incomingQueue, true, deliverCallback, consumerTag -> {
+				consumerTag = incomingChannel.basicConsume(incomingQueue, true, deliverCallback, consumerTag -> {
 				});
 			} catch (IOException e) {
 				logger.severe("Error in rabbit listener: " + e.toString());
@@ -79,11 +82,12 @@ public class RabbitHandler {
 
 	public void shutdown() {
 		try {
+			incomingChannel.basicCancel(consumerTag);
 			incomingChannel.close();
 			outgoingChannel.close();
 			conn.close();
 		} catch (IOException | TimeoutException e) {
-			logger.severe("Failed to close rabbit connection: " + e);
+			logger.log(Level.SEVERE, "Failed to close rabbit connection: ", e);
 		}
 	}
 
@@ -93,7 +97,7 @@ public class RabbitHandler {
 			if (ApolloMain.getInstance().getConfigManager().debugRabbit()) {
 				logger.info("[X] R_OUT: " + strMsg);
 			}
-			outgoingChannel.basicPublish("", outgoingQueue, null, strMsg.getBytes("UTF-8"));
+			outgoingChannel.basicPublish("", outgoingQueue, null, strMsg.getBytes(StandardCharsets.UTF_8));
 			return true;
 		} catch (IOException e) {
 			logger.severe("Failed to send rabbit message: " + e);
