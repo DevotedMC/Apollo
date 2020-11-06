@@ -20,8 +20,8 @@ public class LoginListener implements Listener {
 				event.getConnection().getUniqueId());
 		session.setWaitingEvent(event);
 		apollo.getTransactionIdManager().putSession(session);
-		ApolloMain.getInstance().getRabbitHandler()
-				.sendMessage(new RequestPlayerLogin(ticket, event.getConnection().getUniqueId()));
+		ApolloMain.getInstance().getRabbitHandler().sendMessage(new RequestPlayerLogin(ticket,
+				event.getConnection().getUniqueId(), event.getConnection().getAddress().getAddress()));
 		synchronized (event) {
 			while (event.isCancelled()) {
 				try {
