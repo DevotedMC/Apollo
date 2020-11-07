@@ -12,17 +12,20 @@ public class RequestPlayerLogin extends RabbitMessage {
 
 	private UUID player;
 	private InetAddress ip;
+	private String name;
 	
-	public RequestPlayerLogin(String transactionID, UUID player, InetAddress ip) {
+	public RequestPlayerLogin(String transactionID, UUID player, InetAddress ip, String name) {
 		super(transactionID);
 		this.player = player;
 		this.ip = ip;
+		this.name = name;
 	}
 
 	@Override
 	protected void enrichJson(JSONObject json) {
 		json.put("player", player);
-		json.put("ip", ip.toString());
+		json.put("ip", ip.getHostAddress());
+		json.put("name", name);
 	}
 
 	@Override

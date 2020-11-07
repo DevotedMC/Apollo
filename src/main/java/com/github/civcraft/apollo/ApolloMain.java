@@ -1,5 +1,7 @@
 package com.github.civcraft.apollo;
 
+import java.util.concurrent.TimeUnit;
+
 import com.github.civcraft.apollo.commands.LimboPlayerCommand;
 import com.github.civcraft.apollo.listener.LoginListener;
 import com.github.civcraft.apollo.rabbit.RabbitHandler;
@@ -35,7 +37,7 @@ public class ApolloMain extends Plugin {
 		zeus = new ZeusServer();
 		serverManager = new PlayerServerManager(this);
 		limboManager = new LimboManager(this);
-		transactionIdManager = new TransactionIdManager(configManager.getOwnIdentifier());
+		transactionIdManager = new TransactionIdManager(configManager.getOwnIdentifier(), getLogger()::info);
 		getProxy().getPluginManager().registerListener(this, new LoginListener());
 		rabbitHandler = new RabbitHandler(configManager.getConnectionFactory(), configManager.getOwnIdentifier(),
 				transactionIdManager, getLogger(), new ZeusServer());
@@ -44,6 +46,7 @@ public class ApolloMain extends Plugin {
 			return;
 		}
 		rabbitHandler.beginAsyncListen();
+		getProxy().getScheduler().schedule(this, transactionIdManager::updateTimeouts, 10, 10, TimeUnit.MILLISECONDS);
 		registerCommands();
 	}
 	

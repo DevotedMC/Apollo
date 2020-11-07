@@ -1,4 +1,4 @@
-package com.github.civcraft.apollo.rabbit;
+package com.github.civcraft.apollo.rabbit.session;
 
 import java.util.UUID;
 
@@ -11,13 +11,23 @@ import net.md_5.bungee.api.event.LoginEvent;
 public class PlayerLoginSession extends PlayerSpecificPacketSession {
 
 	private LoginEvent eventWaiting;
+	private String name;
 
-	public PlayerLoginSession(ConnectedServer source, String transactionID, UUID player) {
+	public PlayerLoginSession(ConnectedServer source, String transactionID, UUID player, String name) {
 		super(source, transactionID, player);
+		this.name = name;
 	}
 
 	public void setWaitingEvent(LoginEvent event) {
 		this.eventWaiting = event;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public void handleReply(boolean allow, String reason, String targetServer) {

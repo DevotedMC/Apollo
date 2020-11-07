@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
+import net.md_5.bungee.UserConnection;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.protocol.packet.Respawn;
 
@@ -22,8 +23,12 @@ public class LimboManager {
 		sendIntoLimboPacket(player);
 		limboPlayers.add(uuid);
 	}
+	
+	public void removeFromLimbo(UUID uuid) {
+		this.limboPlayers.remove(uuid);
+	}
 
-	public void sendIntoLimboPacket(ProxiedPlayer player) {
+	private void sendIntoLimboPacket(ProxiedPlayer player) {
 		/*
 		CompoundTag dimension = new CompoundTag();
 		dimension.add(new NamedTag("name", new StringTag("minecraft:the_end")));

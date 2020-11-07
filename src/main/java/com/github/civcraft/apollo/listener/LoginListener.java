@@ -1,11 +1,17 @@
 package com.github.civcraft.apollo.listener;
 
 import com.github.civcraft.apollo.ApolloMain;
-import com.github.civcraft.apollo.rabbit.PlayerLoginSession;
 import com.github.civcraft.apollo.rabbit.outgoing.RequestPlayerLogin;
+import com.github.civcraft.apollo.rabbit.session.PlayerLoginSession;
 
+import net.md_5.bungee.UserConnection;
+import net.md_5.bungee.api.ProxyServer;
+import net.md_5.bungee.api.ServerConnectRequest;
+import net.md_5.bungee.api.chat.BaseComponent;
+import net.md_5.bungee.api.config.ServerInfo;
 import net.md_5.bungee.api.event.LoginEvent;
 import net.md_5.bungee.api.event.ServerConnectEvent;
+import net.md_5.bungee.api.event.ServerKickEvent;
 import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.event.EventHandler;
 
@@ -17,11 +23,11 @@ public class LoginListener implements Listener {
 		ApolloMain apollo = ApolloMain.getInstance();
 		String ticket = apollo.getTransactionIdManager().pullNewTicket();
 		PlayerLoginSession session = new PlayerLoginSession(apollo.getZeus(), ticket,
-				event.getConnection().getUniqueId());
+				event.getConnection().getUniqueId(), event.getConnection().getName());
 		session.setWaitingEvent(event);
 		apollo.getTransactionIdManager().putSession(session);
 		ApolloMain.getInstance().getRabbitHandler().sendMessage(new RequestPlayerLogin(ticket,
-				event.getConnection().getUniqueId(), event.getConnection().getAddress().getAddress()));
+				event.getConnection().getUniqueId(), event.getConnection().getAddress().getAddress(), event.getConnection().getName()));
 		synchronized (event) {
 			while (event.isCancelled()) {
 				try {
@@ -36,7 +42,9 @@ public class LoginListener implements Listener {
 			return;
 		}
 		// allow
+		String name = session.getName(); //TODO update player name
 		event.setCancelled(false);
+		
 	}
 
 	@EventHandler
@@ -53,6 +61,17 @@ public class LoginListener implements Listener {
 		case UNKNOWN:
 			return;
 		case JOIN_PROXY:
+			String target = ApolloMain.getInstance().getPlayerServerManager().consumeConnectionTarget(event.getPlayer().getUniqueId());
+			if (target == null) {
+				event.getPlayer().disconnect("Failed to find target server");
+				return;
+			}
+			ServerInfo server = ApolloMain.getInstance().getProxy().getServerInfo(target);
+			if (server == null) {
+				event.getPlayer().disconnect("Target server went offline mid connection attempt");
+				return;
+			}
+			event.setTarget(server);
 			break;
 		default:
 			event.getPlayer().disconnect("No");
@@ -60,6 +79,14 @@ public class LoginListener implements Listener {
 		}
 		// only join proxy, meaning initial connect at this point
 
+	}
+	
+	private String extractRawMsg(BaseComponent [] comps) {
+		StringBuilder sb = new StringBuilder();
+		for(BaseComponent comp : comps) {
+			sb.append(comp.toPlainText());
+		}
+		return sb.toString();
 	}
 
 }

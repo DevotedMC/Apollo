@@ -2,7 +2,7 @@ package com.github.civcraft.apollo.rabbit.incoming;
 
 import org.json.JSONObject;
 
-import com.github.civcraft.apollo.rabbit.PlayerLoginSession;
+import com.github.civcraft.apollo.rabbit.session.PlayerLoginSession;
 import com.github.civcraft.zeus.rabbit.incoming.InteractiveRabbitCommand;
 import com.github.civcraft.zeus.rabbit.outgoing.artemis.RejectPlayerInitialLogin;
 import com.github.civcraft.zeus.servers.ConnectedServer;
