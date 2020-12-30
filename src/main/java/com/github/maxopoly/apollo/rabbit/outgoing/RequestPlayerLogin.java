@@ -1,12 +1,12 @@
-package com.github.civcraft.apollo.rabbit.outgoing;
+package com.github.maxopoly.apollo.rabbit.outgoing;
 
 import java.net.InetAddress;
 import java.util.UUID;
 
 import org.json.JSONObject;
 
-import com.github.civcraft.zeus.rabbit.RabbitMessage;
-import com.github.civcraft.zeus.rabbit.incoming.apollo.PlayerLoginRequest;
+import com.github.maxopoly.zeus.rabbit.RabbitMessage;
+import com.github.maxopoly.zeus.rabbit.incoming.apollo.PlayerLoginRequest;
 
 public class RequestPlayerLogin extends RabbitMessage {
 

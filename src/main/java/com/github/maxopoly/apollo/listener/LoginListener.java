@@ -1,8 +1,8 @@
-package com.github.civcraft.apollo.listener;
+package com.github.maxopoly.apollo.listener;
 
-import com.github.civcraft.apollo.ApolloMain;
-import com.github.civcraft.apollo.rabbit.outgoing.RequestPlayerLogin;
-import com.github.civcraft.apollo.rabbit.session.PlayerLoginSession;
+import com.github.maxopoly.apollo.ApolloMain;
+import com.github.maxopoly.apollo.rabbit.outgoing.RequestPlayerLogin;
+import com.github.maxopoly.apollo.rabbit.session.PlayerLoginSession;
 
 import net.md_5.bungee.UserConnection;
 import net.md_5.bungee.api.ProxyServer;

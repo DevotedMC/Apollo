@@ -1,4 +1,4 @@
-package com.github.civcraft.apollo.rabbit;
+package com.github.maxopoly.apollo.rabbit;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -6,12 +6,12 @@ import java.util.concurrent.TimeoutException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.github.civcraft.apollo.ApolloMain;
-import com.github.civcraft.zeus.model.TransactionIdManager;
-import com.github.civcraft.zeus.rabbit.RabbitMessage;
-import com.github.civcraft.zeus.rabbit.ZeusRabbitGateway;
-import com.github.civcraft.zeus.rabbit.incoming.InteractiveRabbitCommand;
-import com.github.civcraft.zeus.servers.ZeusServer;
+import com.github.maxopoly.apollo.ApolloMain;
+import com.github.maxopoly.zeus.model.TransactionIdManager;
+import com.github.maxopoly.zeus.rabbit.RabbitMessage;
+import com.github.maxopoly.zeus.rabbit.ZeusRabbitGateway;
+import com.github.maxopoly.zeus.rabbit.incoming.InteractiveRabbitCommand;
+import com.github.maxopoly.zeus.servers.ZeusServer;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;

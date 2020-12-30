@@ -1,4 +1,4 @@
-package com.github.civcraft.apollo;
+package com.github.maxopoly.apollo;
 
 import java.io.File;
 import java.io.FileOutputStream;

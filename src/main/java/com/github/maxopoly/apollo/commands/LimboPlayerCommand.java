@@ -1,6 +1,6 @@
-package com.github.civcraft.apollo.commands;
+package com.github.maxopoly.apollo.commands;
 
-import com.github.civcraft.apollo.ApolloMain;
+import com.github.maxopoly.apollo.ApolloMain;
 
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.connection.ProxiedPlayer;

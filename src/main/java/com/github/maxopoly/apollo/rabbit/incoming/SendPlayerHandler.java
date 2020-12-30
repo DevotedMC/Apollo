@@ -1,13 +1,13 @@
-package com.github.civcraft.apollo.rabbit.incoming;
+package com.github.maxopoly.apollo.rabbit.incoming;
 
 import java.util.UUID;
 
 import org.json.JSONObject;
 
-import com.github.civcraft.apollo.ApolloMain;
-import com.github.civcraft.zeus.rabbit.incoming.StaticRabbitCommand;
-import com.github.civcraft.zeus.rabbit.outgoing.apollo.TransferPlayerToServer;
-import com.github.civcraft.zeus.servers.ConnectedServer;
+import com.github.maxopoly.apollo.ApolloMain;
+import com.github.maxopoly.zeus.rabbit.incoming.StaticRabbitCommand;
+import com.github.maxopoly.zeus.rabbit.outgoing.apollo.TransferPlayerToServer;
+import com.github.maxopoly.zeus.servers.ConnectedServer;
 
 public class SendPlayerHandler extends StaticRabbitCommand {
 

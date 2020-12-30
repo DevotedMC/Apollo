@@ -1,12 +1,12 @@
-package com.github.civcraft.apollo.rabbit;
+package com.github.maxopoly.apollo.rabbit;
 
-import com.github.civcraft.apollo.ApolloMain;
-import com.github.civcraft.apollo.rabbit.incoming.ConfirmPlayerLogin;
-import com.github.civcraft.apollo.rabbit.incoming.LimboPlayerHandler;
-import com.github.civcraft.apollo.rabbit.incoming.RejectPlayerLogin;
-import com.github.civcraft.apollo.rabbit.incoming.SendPlayerHandler;
-import com.github.civcraft.zeus.model.TransactionIdManager;
-import com.github.civcraft.zeus.rabbit.abstr.AbstractRabbitInputHandler;
+import com.github.maxopoly.apollo.ApolloMain;
+import com.github.maxopoly.apollo.rabbit.incoming.ConfirmPlayerLogin;
+import com.github.maxopoly.apollo.rabbit.incoming.LimboPlayerHandler;
+import com.github.maxopoly.apollo.rabbit.incoming.RejectPlayerLogin;
+import com.github.maxopoly.apollo.rabbit.incoming.SendPlayerHandler;
+import com.github.maxopoly.zeus.model.TransactionIdManager;
+import com.github.maxopoly.zeus.rabbit.abstr.AbstractRabbitInputHandler;
 
 public class ApolloRabbitInputHandler extends AbstractRabbitInputHandler {
 

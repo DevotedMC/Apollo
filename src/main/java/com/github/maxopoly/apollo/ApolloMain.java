@@ -1,12 +1,12 @@
-package com.github.civcraft.apollo;
+package com.github.maxopoly.apollo;
 
 import java.util.concurrent.TimeUnit;
 
-import com.github.civcraft.apollo.commands.LimboPlayerCommand;
-import com.github.civcraft.apollo.listener.LoginListener;
-import com.github.civcraft.apollo.rabbit.RabbitHandler;
-import com.github.civcraft.zeus.model.TransactionIdManager;
-import com.github.civcraft.zeus.servers.ZeusServer;
+import com.github.maxopoly.apollo.commands.LimboPlayerCommand;
+import com.github.maxopoly.apollo.listener.LoginListener;
+import com.github.maxopoly.apollo.rabbit.RabbitHandler;
+import com.github.maxopoly.zeus.model.TransactionIdManager;
+import com.github.maxopoly.zeus.servers.ZeusServer;
 
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.plugin.Plugin;

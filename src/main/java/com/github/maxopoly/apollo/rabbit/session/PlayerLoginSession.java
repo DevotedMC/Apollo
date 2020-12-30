@@ -1,10 +1,10 @@
-package com.github.civcraft.apollo.rabbit.session;
+package com.github.maxopoly.apollo.rabbit.session;
 
 import java.util.UUID;
 
-import com.github.civcraft.apollo.ApolloMain;
-import com.github.civcraft.zeus.rabbit.PlayerSpecificPacketSession;
-import com.github.civcraft.zeus.servers.ConnectedServer;
+import com.github.maxopoly.apollo.ApolloMain;
+import com.github.maxopoly.zeus.rabbit.PlayerSpecificPacketSession;
+import com.github.maxopoly.zeus.servers.ConnectedServer;
 
 import net.md_5.bungee.api.event.LoginEvent;
 

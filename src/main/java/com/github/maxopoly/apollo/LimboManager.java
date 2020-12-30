@@ -1,10 +1,9 @@
-package com.github.civcraft.apollo;
+package com.github.maxopoly.apollo;
 
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
-import net.md_5.bungee.UserConnection;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.protocol.packet.Respawn;
 
