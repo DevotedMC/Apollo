@@ -4,6 +4,7 @@ import java.util.concurrent.TimeUnit;
 
 import com.github.maxopoly.apollo.commands.LimboPlayerCommand;
 import com.github.maxopoly.apollo.listener.LoginListener;
+import com.github.maxopoly.apollo.listener.LogoffListener;
 import com.github.maxopoly.apollo.rabbit.RabbitHandler;
 import com.github.maxopoly.zeus.model.TransactionIdManager;
 import com.github.maxopoly.zeus.servers.ZeusServer;
@@ -38,7 +39,6 @@ public class ApolloMain extends Plugin {
 		serverManager = new PlayerServerManager(this);
 		limboManager = new LimboManager(this);
 		transactionIdManager = new TransactionIdManager(configManager.getOwnIdentifier(), getLogger()::info);
-		getProxy().getPluginManager().registerListener(this, new LoginListener());
 		rabbitHandler = new RabbitHandler(configManager.getConnectionFactory(), configManager.getOwnIdentifier(),
 				transactionIdManager, getLogger(), new ZeusServer());
 		if (!rabbitHandler.setup()) {
@@ -47,6 +47,8 @@ public class ApolloMain extends Plugin {
 		}
 		rabbitHandler.beginAsyncListen();
 		getProxy().getScheduler().schedule(this, transactionIdManager::updateTimeouts, 10, 10, TimeUnit.MILLISECONDS);
+		getProxy().getPluginManager().registerListener(this, new LoginListener());
+		getProxy().getPluginManager().registerListener(this, new LogoffListener());
 		registerCommands();
 	}
 	
