@@ -12,7 +12,7 @@ public class LogoffListener implements Listener {
 	@EventHandler
 	public void onLogoff(PlayerDisconnectEvent event) {
 		String transId = ApolloMain.getInstance().getTransactionIdManager().pullNewTicket();
-		ApolloMain.getInstance().getRabbitHandler().sendMessage(new NotifyPlayerLogoff(transId, event.getPlayer().getUniqueId()));
+		ApolloMain.getInstance().getRabbitHandler().sendMessage(new NotifyPlayerLogoff(event.getPlayer().getUniqueId()));
 	}
 
 }

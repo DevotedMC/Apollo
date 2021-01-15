@@ -3,6 +3,8 @@ package com.github.maxopoly.apollo;
 import java.util.concurrent.TimeUnit;
 
 import com.github.maxopoly.apollo.commands.LimboPlayerCommand;
+import com.github.maxopoly.apollo.commands.LobbyCommand;
+import com.github.maxopoly.apollo.commands.WorldSpawnCommand;
 import com.github.maxopoly.apollo.listener.LoginListener;
 import com.github.maxopoly.apollo.listener.LogoffListener;
 import com.github.maxopoly.apollo.rabbit.RabbitHandler;
@@ -59,6 +61,8 @@ public class ApolloMain extends Plugin {
 
 	private void registerCommands() {
 		ProxyServer.getInstance().getPluginManager().registerCommand(this, new LimboPlayerCommand());
+		ProxyServer.getInstance().getPluginManager().registerCommand(this, new LobbyCommand());
+		ProxyServer.getInstance().getPluginManager().registerCommand(this, new WorldSpawnCommand());
 	}
 
 	public LimboManager getLimboManager() {

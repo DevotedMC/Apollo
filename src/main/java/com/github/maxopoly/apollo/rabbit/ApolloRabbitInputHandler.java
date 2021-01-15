@@ -7,6 +7,7 @@ import com.github.maxopoly.apollo.rabbit.incoming.RejectPlayerLogin;
 import com.github.maxopoly.apollo.rabbit.incoming.SendPlayerHandler;
 import com.github.maxopoly.zeus.model.TransactionIdManager;
 import com.github.maxopoly.zeus.rabbit.abstr.AbstractRabbitInputHandler;
+import com.github.maxopoly.zeus.rabbit.incoming.apollo.WorldSpawnRequestHandler;
 
 public class ApolloRabbitInputHandler extends AbstractRabbitInputHandler {
 
@@ -20,6 +21,7 @@ public class ApolloRabbitInputHandler extends AbstractRabbitInputHandler {
 		registerCommand(new SendPlayerHandler());
 		registerCommand(new ConfirmPlayerLogin());
 		registerCommand(new RejectPlayerLogin());
+		deferCommandToStandardRequest(WorldSpawnRequestHandler.REPLY_ID);
 	}
 
 	@Override

@@ -4,6 +4,8 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
+import com.github.maxopoly.apollo.rabbit.outgoing.NotifyPlayerSwitchShard;
+
 import net.md_5.bungee.ServerConnection;
 import net.md_5.bungee.UserConnection;
 import net.md_5.bungee.api.config.ServerInfo;
@@ -32,6 +34,9 @@ public class PlayerServerManager {
 		if (serverInfo == null) {
 			return false;
 		}
+		if (player.getServer().getInfo().getName().equals(server)) {
+			return false;
+		}
 		UserConnection conn = (UserConnection) player;
 		ServerConnection serverConn = conn.getServer();
 		//we close the connection to the minecraft server only, which makes it save out the players data
@@ -39,6 +44,7 @@ public class PlayerServerManager {
 			serverConn.setObsolete(true);
 			serverConn.disconnect("Quitting");
 		}
+		apollo.getRabbitHandler().sendMessage(new NotifyPlayerSwitchShard(player.getUniqueId(), serverInfo.getName()));
 		player.connect(serverInfo);
 		return true;
 	}
