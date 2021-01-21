@@ -1,6 +1,7 @@
 package com.github.maxopoly.apollo.listener;
 
 import com.github.maxopoly.apollo.ApolloMain;
+import com.github.maxopoly.apollo.rabbit.outgoing.NotifyPlayerSwitchShard;
 import com.github.maxopoly.apollo.rabbit.outgoing.RequestPlayerLogin;
 import com.github.maxopoly.apollo.rabbit.session.PlayerLoginSession;
 
@@ -72,13 +73,14 @@ public class LoginListener implements Listener {
 				return;
 			}
 			event.setTarget(server);
+			ApolloMain.getInstance().getRabbitHandler().sendMessage(new NotifyPlayerSwitchShard(event.getPlayer().getUniqueId(), 
+					server.getName()));
 			break;
 		default:
 			event.getPlayer().disconnect("No");
 			return;
 		}
 		// only join proxy, meaning initial connect at this point
-
 	}
 	
 	private String extractRawMsg(BaseComponent [] comps) {

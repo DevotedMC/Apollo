@@ -14,6 +14,9 @@ public class LobbyCommand extends Command {
 
 	@Override
 	public void execute(CommandSender sender, String[] args) {
+		if (!sender.hasPermission("apollo.lobby")) {
+			return;
+		}
 		ApolloMain.getInstance().getPlayerServerManager().sendPlayer((ProxiedPlayer) sender, "lobby");
 	}
 

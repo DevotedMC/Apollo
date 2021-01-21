@@ -15,6 +15,9 @@ public class WorldSpawnCommand extends Command {
 
 	@Override
 	public void execute(CommandSender sender, String[] args) {
+		if (!sender.hasPermission("apollo.worldspawn")) {
+			return;
+		}
 		if (!(sender instanceof ProxiedPlayer)) {
 			return;
 		}
