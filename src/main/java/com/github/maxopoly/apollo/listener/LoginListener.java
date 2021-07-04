@@ -4,15 +4,10 @@ import com.github.maxopoly.apollo.ApolloMain;
 import com.github.maxopoly.apollo.rabbit.outgoing.NotifyPlayerSwitchShard;
 import com.github.maxopoly.apollo.rabbit.outgoing.RequestPlayerLogin;
 import com.github.maxopoly.apollo.rabbit.session.PlayerLoginSession;
-
-import net.md_5.bungee.UserConnection;
-import net.md_5.bungee.api.ProxyServer;
-import net.md_5.bungee.api.ServerConnectRequest;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.config.ServerInfo;
 import net.md_5.bungee.api.event.LoginEvent;
 import net.md_5.bungee.api.event.ServerConnectEvent;
-import net.md_5.bungee.api.event.ServerKickEvent;
 import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.event.EventHandler;
 
