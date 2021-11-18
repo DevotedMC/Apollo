@@ -9,40 +9,40 @@
 	<artifactId>apollo</artifactId>
 
 	<name>Apollo</name>
-	<version>1.0.0</version>
+	<version>1.1.0</version>
 
 	<parent>
 		<groupId>com.github.civclassic</groupId>
 		<artifactId>civclassic-parent</artifactId>
-		<version>1.0.0</version>
+		<version>1.0.1</version>
 	</parent>
 
 	<dependencies>
 		<dependency>
 			<groupId>net.md-5</groupId>
 			<artifactId>bungeecord-api</artifactId>
-			<version>1.16-R0.4-SNAPSHOT</version>
+			<version>1.17-R0.1-SNAPSHOT</version>
 			<type>jar</type>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>net.md-5</groupId>
 			<artifactId>bungeecord-proxy</artifactId>
-			<version>1.16-R0.4-SNAPSHOT</version>
+			<version>1.17-R0.1-SNAPSHOT</version>
 			<type>jar</type>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>net.md-5</groupId>
 			<artifactId>bungeecord-api</artifactId>
-			<version>1.16-R0.4-SNAPSHOT</version>
+			<version>1.17-R0.1-SNAPSHOT</version>
 			<type>javadoc</type>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.github.maxopoly</groupId>
 			<artifactId>zeus</artifactId>
-			<version>1.0</version>
+			<version>1.2</version>
 		</dependency>
 	</dependencies>
 
